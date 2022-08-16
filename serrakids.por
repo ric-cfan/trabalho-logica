@@ -3,7 +3,7 @@ programa {
 	inclua biblioteca Util --> util
 	
 	funcao inicio() {
-		cadeia decisaoMenu
+		caracter decisaoMenu
 		
 		imprimeLogo()
 		util.aguarde(1000)
@@ -11,22 +11,28 @@ programa {
 		
 		escreva("----- Bem-vindo a loja SerraKids! -----\n\nDeseja entrar na loja?\n\n1 - Em caso afirmativo\nOutro para fechar o programa\n\nSua escolha: ")
 		leia(decisaoMenu)
-			se(decisaoMenu == "1") {
+			se(decisaoMenu == '1') {
 				limpa()
 				escreva("Você já possui cadastro?\n\n1 - Para fazer login\n2 - Para criar uma nova conta\nOutro para voltar ao menu principal\n\nSua escolha: ")
 				leia(decisaoMenu)
-				se(decisaoMenu == "1") {
+				escolha(decisaoMenu) {
+					caso '1':
 					// Ira chamar funcao login
 					escreva("Login") // Lembrar de deletar ao adicionar funcao
-				}
-				senao se (decisaoMenu == "2") {
+					pare
+					
+					caso '2':
 					// Ira chamar funcao criarUsuario
 					escreva("Novo usuario") // Lembrar de deletar ao adicionar funcao
-				}
-				senao {
+					pare
+
+					caso contrario:
 					limpa()
 					inicio()
 				}
+			}
+			senao {
+				escreva("\nAté logo! Estamos no aguardo para vê-lo novamente.")
 			}
 	}
 
@@ -131,7 +137,7 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 250; 
+ * @POSICAO-CURSOR = 949; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
