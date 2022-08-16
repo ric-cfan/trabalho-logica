@@ -1,10 +1,12 @@
 // O programa simula uma loja de brinquedos, essa parte cria o logo da loja e o menu inicial, o logo tem formato "Sk" estilizado
 programa {
+	inclua biblioteca Util --> util
 	
 	funcao inicio() {
 		cadeia decisaoMenu
 		
 		imprimeLogo()
+		util.aguarde(1000)
 		escreva("\n\n")
 		
 		escreva("----- Bem-vindo a loja SerraKids! -----\n\nDeseja entrar na loja?\n\n1 - Em caso afirmativo\nOutro para fechar o programa\n\nSua escolha: ")
@@ -129,7 +131,7 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 563; 
+ * @POSICAO-CURSOR = 250; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
