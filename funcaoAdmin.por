@@ -4,8 +4,8 @@ programa
 	cadeia user [] = {"gabriel", "ricardo", "jose", "lucas", "michelli"}
 		inteiro i , userNum = 0
 		
-	//funcao inicio(){
-	//	menuAdmin()
+	funcao inicio(){
+		menuAdmin()
 		}
 	//funcao para menu inicial (separar da funcao adminUsuario) funcao menuAdmin)
 	funcao menuAdmin(){
@@ -125,7 +125,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 148; 
+ * @POSICAO-CURSOR = 2644; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
