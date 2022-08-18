@@ -198,10 +198,7 @@ programa {
 	funcao errologin() {  
 		som = sons.carregar_som("errou.mp3")
 		sons.reproduzir_som(som,falso)
-		sons.definir_volume(70)
-		util.aguarde(1000)
-		sons.interromper_som(som)
-		sons.liberar_som(som)
+		sons.definir_volume(100)
 	  
 		escreva("Usuário e/ou senha incorreto(s)!\n")
 		escreva("Redirecionando para a tela de login...\n")
@@ -919,7 +916,7 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 10735; 
+ * @POSICAO-CURSOR = 5521; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = {vetoruser, 7, 8, 9}-{vetorsenha, 7, 24, 10};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
