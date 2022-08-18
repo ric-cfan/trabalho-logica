@@ -5,7 +5,7 @@ programa {
 	inclua biblioteca Texto --> texto
 	
 	cadeia vetoruser[99] , vetorsenha[99], user, senha, carrinho [3]
-	inteiro i , userNum = 0, quant = 6, som, primeiroBoot = 0
+	inteiro i = 0 , userNum = 0, quant = 6, som, primeiroBoot = 0, totalComprado = 0
 	caracter escolhaMenu
 	
 	funcao inicio() {
@@ -368,11 +368,11 @@ programa {
 	
 	funcao editarUsuario() {
 
-		cadeia escolher, nomeAtual
+		cadeia escolher, nomeAtual = ""
 		inteiro quantidadeCaracteres = 0
 		logico loop = verdadeiro, userExistente = falso
 
-		escreva ("Edição de usuário\n\nQual usuário você deseja editar\n\n")
+		escreva ("Edição de usuário\n\nQual usuário você deseja editar, ou 0 para retornar ao menu de admin.\n\n")
 		para(i = 1; i < quant; i++) {
 			escreva(i,".",vetoruser[i],"\n")
 			}
@@ -382,9 +382,14 @@ programa {
 			limpa()
 				
 			se(userNum >= quant ou userNum == 0){
-				escreva("** Número invalido **\n")
-				util.aguarde(2000)
-				editarUsuario()
+				se(userNum == 0) {
+					menuAdmin()
+				}
+				senao {
+					escreva("** Número invalido **\n")
+					util.aguarde(2000)
+					editarUsuario()
+				}
 			}
 			
 			escreva("Usuario, ",vetoruser[userNum]," selecionado:\n1.Editar\n0.Voltar ao menu\nSua escolha: ")
@@ -395,14 +400,13 @@ programa {
 				
 				enquanto(loop) {
 					userExistente = falso
-					limpa()
 					escreva("Edição de usuário\n\nDigite um novo nome de usuario com um minimo de quatro caracteres, espaços são desconsiderados: \n\n>")
 					leia(vetoruser[userNum])
 					vetoruser[userNum] = texto.substituir(vetoruser[userNum], " ", "")
 					quantidadeCaracteres = texto.numero_caracteres(vetoruser[userNum])
 						
 					para(i = 0; i < quant; i++) {
-						se(vetoruser[userNum] == vetoruser[i] e vetoruser[userNum] != nomeAtual) {
+						se(vetoruser[userNum] == vetoruser[i] e vetoruser[userNum] == nomeAtual) {
 							escreva("Nome de usuário já está sendo utilizado. Por favor, escolha outro.\n\n")
 							util.aguarde(2000)
 							userExistente = verdadeiro
@@ -630,7 +634,7 @@ programa {
 				
 				escolha(escolhaMenu){
 					caso '1':
-						se(i == 3){
+						se(totalComprado == 3){
 							limpa()
 							escreva("***************************\n")
 							escreva("*O carrinho já está cheio.*\n")
@@ -639,15 +643,15 @@ programa {
 						}
 						senao {
 							limpa()
-							carrinho[i] = "Urso de pelúcia"
-							i++
+							carrinho[totalComprado] = "Urso de pelúcia"
+							totalComprado++
 							escreva("\nProduto adicionado com sucesso no carrinho!\n")
 							menu()
 						}
 					pare
 					
 					caso '2':
-						se(i == 3){
+						se(totalComprado == 3){
 							limpa()
 							escreva("***************************\n")
 							escreva("*O carrinho já está cheio1.*\n")
@@ -656,15 +660,15 @@ programa {
 						}
 						senao {
 							limpa()
-							carrinho[i] = "Coração de pelúcia"
-							i++
+							carrinho[totalComprado] = "Coração de pelúcia"
+							totalComprado++
 							escreva("\nProduto adicionado com sucesso no carrinho!\n")
 							menu()
 						}
 					pare
 					
 					caso '3':
-						se(i == 3) {
+						se(totalComprado == 3) {
 							limpa()
 							escreva("***************************\n")
 							escreva("*O carrinho já está cheio.*\n")
@@ -673,8 +677,8 @@ programa {
 						}
 						senao {
 							limpa()
-							carrinho[i] = "Smile de pelúcia"
-							i++
+							carrinho[totalComprado] = "Smile de pelúcia"
+							totalComprado++
 							escreva("\nProduto adicionado com sucesso no carrinho!\n")
 							menu()
 						}
@@ -702,7 +706,7 @@ programa {
 				leia(escolhaMenu)
 				escolha(escolhaMenu){
 						caso '1':
-							se(i == 3) {
+							se(totalComprado == 3) {
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -711,15 +715,15 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Caminhão de controle remoto"
-								i++
+								carrinho[totalComprado] = "Caminhão de controle remoto"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
 						pare
 						
 						caso '2':
-							se(i == 3){
+							se(totalComprado == 3){
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -728,15 +732,15 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Jogo eletrônico Portátil Pac-Man"
-								i++
+								carrinho[totalComprado] = "Jogo eletrônico Portátil Pac-Man"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
 						pare
 						
 						caso '3':
-							se(i == 3){
+							se(totalComprado == 3){
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -745,8 +749,8 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Mini drone"
-								i++
+								carrinho[totalComprado] = "Mini drone"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
@@ -774,7 +778,7 @@ programa {
 					leia(escolhaMenu)
 					escolha(escolhaMenu) {
 						caso '1':
-							se(i == 3) {
+							se(totalComprado == 3) {
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -783,15 +787,15 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Boneco Coçadinha"
-								i++
+								carrinho[totalComprado] = "Boneco Coçadinha"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
 						pare
 						
 						caso '2':
-							se(i == 3) {
+							se(totalComprado == 3) {
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -800,15 +804,15 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Boneco Bob Esponja"
-								i++
+								carrinho[totalComprado] = "Boneco Bob Esponja"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
 						pare
 						
 						caso '3':
-							se(i == 3) {
+							se(totalComprado == 3) {
 								limpa()
 								escreva("***************************\n")
 								escreva("*O carrinho já está cheio.*\n")
@@ -817,8 +821,8 @@ programa {
 							}
 							senao {
 								limpa()
-								carrinho[i] = "Boneco gigante Charmander"
-								i++
+								carrinho[totalComprado] = "Boneco gigante Charmander"
+								totalComprado++
 								escreva("\nProduto adicionado com sucesso no carrinho!\n")
 								menu()
 							}
@@ -864,7 +868,7 @@ programa {
 	
 	funcao dentroCarrinho(){
 		
-		se(i == 0){
+		se(totalComprado == 0){
 			limpa()
 			escreva("************************\n")
 			escreva("*O carrinho está vazio!*\n")
@@ -885,7 +889,7 @@ programa {
 			leia(escolhaMenu)
 			se(escolhaMenu == 's' ou escolhaMenu == 'S'){
 				limpa()
-				i = 0
+				totalComprado = 0
 				carrinho [1] = ""
 				carrinho [2] = ""
 				escreva("*******************************\n")
@@ -898,7 +902,7 @@ programa {
 				escreva("***********************\n")
 				escreva("*Compra não realizada!*\n")
 				escreva("***********************\n")
-				inicio()
+				menu()
 			}
 			senao {
 				limpa()
@@ -916,9 +920,10 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 5521; 
+ * @POSICAO-CURSOR = 25200; 
+ * @DOBRAMENTO-CODIGO = [10, 47, 143, 197, 208, 235, 240, 245, 295, 368, 456, 488, 486, 619];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {vetoruser, 7, 8, 9}-{vetorsenha, 7, 24, 10};
+ * @SIMBOLOS-INSPECIONADOS = {vetoruser, 7, 8, 9}-{vetorsenha, 7, 24, 10}-{i, 8, 9, 1}-{escolhaMenu, 9, 10, 11};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
