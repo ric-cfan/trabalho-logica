@@ -251,7 +251,7 @@ programa {
 		cadeia escolher
 		//opções para chamar funcoes
 		escreva("1. Adicionar usuário\n")
-		escreva("2. Editar ou excluir usuário\n")
+		escreva("2. Editar usuário\n")
 		escreva("3. Excluir usuário\n")
 		escreva("4. Ir para o menu de produtos\n")
 		escreva("5. Voltar para o login\n")
@@ -298,21 +298,57 @@ programa {
 
 	funcao adicionarUsuario(){
 		
-		cadeia novoUser, novaSenha
-		cadeia escolher
-		logico voltar = verdadeiro
+		cadeia novoUser, novaSenha, escolher
+		inteiro quantidadeCaracteres
+		logico voltar = verdadeiro, userExistente = falso, loop = verdadeiro
 		
-		escreva("1.Função: 'Adicionar usuário'\n\n")
-		
-		escreva("Digite um nome de usuário: ")
-		leia (novoUser)
-		escreva("Digite uma senha: ")
-		leia(novaSenha)
-
-		vetoruser[quant] = novoUser
-		vetorsenha[quant] = novaSenha
-		quant++
-		escreva("\nUsuário criado com sucesso!\n\n")
+		enquanto(loop) {
+				userExistente = falso
+				limpa()
+				escreva("Adição de usuário\n\nDigite um nome de usuario com um minimo de quatro caracteres, espaços são desconsiderados: \n\n>")
+				leia(novoUser)
+				novoUser = texto.substituir(novoUser, " ", "")
+				quantidadeCaracteres = texto.numero_caracteres(novoUser)
+						
+				para(i = 0; i < (quant - 1); i++) {
+					se(novoUser == vetoruser[i]) {
+						escreva("Nome de usuário já está sendo utilizado. Por favor, escolha outro.\n\n")
+						util.aguarde(2000)
+						userExistente = verdadeiro
+						i = quant
+					}
+				}
+				se(quantidadeCaracteres >= 4 e userExistente == falso) {
+					vetoruser[quant] = novoUser
+					escreva("Usuário definido com sucesso: ",vetoruser[quant],"\n")
+					loop = falso
+				}
+				senao {
+					se(userExistente == falso) {
+						escreva("O usuário necessita de no mínimo 4 caracteres, tente novamente.\n\n")
+						util.aguarde(2000)
+					}
+				}
+			}
+			
+		loop = verdadeiro
+		enquanto(loop) {
+			escreva("Edição de senha\nDigite uma senha com um minimo de quatro caracteres, espaços são desconsiderados:  \n\n>")
+			leia(novaSenha)
+			novaSenha = texto.substituir(novaSenha, " ", "")
+			quantidadeCaracteres = texto.numero_caracteres(novaSenha)
+			se(quantidadeCaracteres >= 4) {
+				vetorsenha[quant] = novaSenha
+				escreva("Senha definida com sucesso: ",vetorsenha[quant],"\n")
+				loop = falso
+				escreva("\nUsuário criado com sucesso!\n\n")
+				quant++
+			}
+			senao {
+				escreva("A senha necessita de no mínimo 4 caracteres, tente novamente.\n\n")
+				util.aguarde(2000)
+			}
+		}
 
 		enquanto(voltar) {
 			escreva("Voltar a tela de login?\nDigite \"s\" para sim, \"n\" para não.\n\nSua escolha: ")
@@ -335,8 +371,10 @@ programa {
 	
 	funcao editarUsuario() {
 
-		cadeia escolher
-		
+		cadeia escolher, nomeAtual
+		inteiro quantidadeCaracteres = 0
+		logico loop = verdadeiro, userExistente = falso
+
 		escreva ("Edição de usuário\n\nQual usuário você deseja editar\n\n")
 		para(i = 1; i < quant; i++) {
 			escreva(i,".",vetoruser[i],"\n")
@@ -346,8 +384,9 @@ programa {
 			leia(userNum)
 			limpa()
 				
-			se(userNum >= quant e userNum == 0){
+			se(userNum >= quant ou userNum == 0){
 				escreva("** Número invalido **\n")
+				util.aguarde(2000)
 				editarUsuario()
 			}
 			
@@ -355,28 +394,64 @@ programa {
 			leia (escolher)
 				
 			se(escolher == "1") {
-					limpa()
-					escreva("Edição de usuário\n\nDigite o novo nome: ")
-					leia(vetoruser[userNum])
-					escreva("Usuário definido com sucesso",vetoruser[userNum],"\n")
+				nomeAtual = vetoruser[userNum]
 				
-					escreva("Edição de senha\nDigite uma nova senha:  ")
-					leia(senha)
-					escreva("Senha definida com sucesso ",vetorsenha[userNum],"\n")
+				enquanto(loop) {
+					userExistente = falso
+					limpa()
+					escreva("Edição de usuário\n\nDigite um novo nome de usuario com um minimo de quatro caracteres, espaços são desconsiderados: \n\n>")
+					leia(vetoruser[userNum])
+					vetoruser[userNum] = texto.substituir(vetoruser[userNum], " ", "")
+					quantidadeCaracteres = texto.numero_caracteres(vetoruser[userNum])
+						
+					para(i = 0; i < quant; i++) {
+						se(vetoruser[userNum] == vetoruser[i] e vetoruser[userNum] != nomeAtual) {
+							escreva("Nome de usuário já está sendo utilizado. Por favor, escolha outro.\n\n")
+							util.aguarde(2000)
+							userExistente = verdadeiro
+							i = quant
+						}
+					}
+					se(quantidadeCaracteres >= 4 e userExistente == falso) {
+						escreva("Usuário definido com sucesso: ",vetoruser[userNum],"\n")
+						loop = falso
+					}
+					senao {
+						se(userExistente == falso) {
+							escreva("O usuário necessita de no mínimo 4 caracteres, tente novamente.\n\n")
+							util.aguarde(2000)
+						}
+					}
+				}
+				loop = verdadeiro
+				enquanto(loop) {
+					escreva("Edição de senha\nDigite uma nova senha com um minimo de quatro caracteres, espaços são desconsiderados:  \n\n>")
+					leia(vetorsenha[userNum])
+					vetorsenha[userNum] = texto.substituir(vetorsenha[userNum], " ", "")
+					quantidadeCaracteres = texto.numero_caracteres(vetorsenha[userNum])
+					se(quantidadeCaracteres >= 4) {
+						escreva("Senha definida com sucesso: ",vetorsenha[userNum],"\n")
+						loop = falso
+					}
+					senao {
+						escreva("A senha necessita de no mínimo 4 caracteres, tente novamente.\n\n")
+						util.aguarde(2000)
+					}
+				}
 					
-					util.aguarde(2000)
-					editarUsuario()
-			}
-			senao se(escolher == "0") {
 					limpa()
-					menuAdmin()
-			}
-			senao {
-					limpa()
-					escreva("*Número inválido! Selecione um número dentre 0 e 1.*\n\n")
 					editarUsuario()
-			}
-	}
+		}
+		senao se(escolher == "0") {
+				limpa()
+				menuAdmin()
+		}
+		senao {
+				limpa()
+				escreva("*Número inválido! Selecione um número dentre 0 e 1.*\n\n")
+				editarUsuario()
+		}
+}
 
 		funcao excluirUsuario() {
 
@@ -844,7 +919,7 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 9724; 
+ * @POSICAO-CURSOR = 10735; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = {vetoruser, 7, 8, 9}-{vetorsenha, 7, 24, 10};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
